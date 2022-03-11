@@ -41,7 +41,7 @@ for i in range(N):
     MatrixB[i] = MasCopyB
     MatrixA[i], MatrixB[i][0] = MatrixA[i] / MatrixA[i][i], MatrixB[i][0] / MatrixA[i][i] # нормируемся на элемент, стоящий в главной диаганали
 
-    #   фонмируем нули в нижней части матрицы путемвычитания
+    #   формируем нули в нижней части матрицы путем вычитания
     for j in range(i + 1, N):
         MatrixB[j][0] = MatrixB[j][0] - MatrixB[i][0] * MatrixA[j][i]
         MatrixA[j][i:N] = MatrixA[j][i:N] - MatrixA[i][i:N] * MatrixA[j][i]  # вычитаем строки срезы можно использовать и так: m = MatrixA[2,0:2]
