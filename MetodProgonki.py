@@ -1,4 +1,5 @@
 import numpy as np
+import FunctionFile as fu
 
 #   введем значения
 # LineA = np.zeros((1,N), float)
@@ -6,11 +7,15 @@ import numpy as np
 lLineA = np.array([0, 1, 1, -1, 2, -1], float)
 lLineB = np.array([60, 80, 130, -90, 140, 70], float)
 lLineC = np.array([1, 1, -2, 1, 1, 0], float)
-lLineD = np.array([6, 7, 13, -8.01, 15, 9], float)
+lLineD = np.array([6, 7, 13, -8, 15, 9], float)
+#поставить, для пункта 3
+
+#lLineD = np.array([6.01, 6.99, 13.01, -8.01, 14.99, 9.01], float)
+iN = len(lLineB)
 
 
 def Progonka(lLineA, lLineB, lLineC, lLineD):
-    iN = len(lLineB)
+    global iN
     #   проверим выполнение достаточного условия
     for k in range(iN):
         if abs(lLineB[k]) < abs(lLineA[k]) + abs(lLineC[k]):
@@ -40,4 +45,21 @@ def Progonka(lLineA, lLineB, lLineC, lLineD):
         lXVector[k] = lBetta[k] + lAlfa[k]*lXVector[k+1]
     return lXVector
 
-print(Progonka(lLineA, lLineB, lLineC, lLineD))
+print(Progonka(lLineA, lLineB, lLineC, lLineD), '\n')
+
+
+# найдем норму невязки данного решения
+#   для этого восстановим матрицу и подставим полученное решение
+FullMatrix = np.zeros((iN,iN), float)
+for i in range(iN):
+    FullMatrix[i][i] = lLineB[i]
+    if i != iN - 1:
+        FullMatrix[i][i+1] = lLineC[i]
+        FullMatrix[i+1][i] = lLineA[i+1]
+
+CurrentMatrixB = np.dot(FullMatrix, Progonka(lLineA, lLineB, lLineC, lLineD))
+#   определим норму невязки
+print("Невязка при методе прогонки по первой норме:", fu.NormaOneForOneLine(CurrentMatrixB - lLineD),'\n')
+print("Невязка при методе прогонки по inf норме:", fu.NormaInfForOneLine(CurrentMatrixB - lLineD))
+
+
