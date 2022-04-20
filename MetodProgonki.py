@@ -45,21 +45,25 @@ def Progonka(lLineA, lLineB, lLineC, lLineD):
         lXVector[k] = lBetta[k] + lAlfa[k]*lXVector[k+1]
     return lXVector
 
-print(Progonka(lLineA, lLineB, lLineC, lLineD), '\n')
 
 
-# найдем норму невязки данного решения
-#   для этого восстановим матрицу и подставим полученное решение
-FullMatrix = np.zeros((iN,iN), float)
-for i in range(iN):
-    FullMatrix[i][i] = lLineB[i]
-    if i != iN - 1:
-        FullMatrix[i][i+1] = lLineC[i]
-        FullMatrix[i+1][i] = lLineA[i+1]
+if __name__ == "main":
 
-CurrentMatrixB = np.dot(FullMatrix, Progonka(lLineA, lLineB, lLineC, lLineD))
-#   определим норму невязки
-print("Невязка при методе прогонки по первой норме:", fu.NormaOneForOneLine(CurrentMatrixB - lLineD),'\n')
-print("Невязка при методе прогонки по inf норме:", fu.NormaInfForOneLine(CurrentMatrixB - lLineD))
+    print(Progonka(lLineA, lLineB, lLineC, lLineD), '\n')
+
+
+    # найдем норму невязки данного решения
+    #   для этого восстановим матрицу и подставим полученное решение
+    FullMatrix = np.zeros((iN,iN), float)
+    for i in range(iN):
+        FullMatrix[i][i] = lLineB[i]
+        if i != iN - 1:
+            FullMatrix[i][i+1] = lLineC[i]
+            FullMatrix[i+1][i] = lLineA[i+1]
+
+    CurrentMatrixB = np.dot(FullMatrix, Progonka(lLineA, lLineB, lLineC, lLineD))
+    #   определим норму невязки
+    print("Невязка при методе прогонки по первой норме:", fu.NormaOneForOneLine(CurrentMatrixB - lLineD),'\n')
+    print("Невязка при методе прогонки по inf норме:", fu.NormaInfForOneLine(CurrentMatrixB - lLineD))
 
 
