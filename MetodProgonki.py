@@ -15,7 +15,7 @@ iN = len(lLineB)
 
 
 def Progonka(lLineA, lLineB, lLineC, lLineD):
-    global iN
+    iN = len(lLineB)
     #   проверим выполнение достаточного условия
     for k in range(iN):
         if abs(lLineB[k]) < abs(lLineA[k]) + abs(lLineC[k]):
@@ -47,7 +47,7 @@ def Progonka(lLineA, lLineB, lLineC, lLineD):
 
 
 
-if __name__ == "main":
+if __name__ == "__main__":
 
     print(Progonka(lLineA, lLineB, lLineC, lLineD), '\n')
 

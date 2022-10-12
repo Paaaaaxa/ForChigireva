@@ -1,8 +1,9 @@
 from MetodProgonki import Progonka
 import numpy as np
 def FunctionValue(x):
-    # return pow(2,x)
-    return 1/(1+25*x*x)
+    return pow(2,x)
+    # return 1/(1+25*x*x)
+    # return x
 Function = []
 def FunctionValuePolinom(A, B, C, D, h):
     global Function
@@ -50,16 +51,16 @@ def CubSpline(xMin, xMax, h):
         VectorA.append(FunctionValue(xMin + (i*h)))
     for i in range(len(VectorC)):
         FunctionValuePolinom(VectorA[i],VectorB[i],VectorC[i],VectorD[i],h)
-    p=5
+
 
     # print(VectorC)
     # print(VectorD)
     # print(VectorA)
     # print(VectorB)
 
-CubSpline(1, 2, 0.1)
+CubSpline(0, 4, 0.5)
 
-o =7
+
 h = np.array(Function, dtype=float)
-np.savetxt("FunctionOut", h)
+np.savetxt("FunctionOut.xls", h)
 
